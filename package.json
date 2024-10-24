@@ -1,6 +1,6 @@
 {
-  "name": "@hoangducnhuan/knex-atlas-sql",
-  "version": "1.0.0",
+  "name": "@hoangducnhuan/knex-mongo",
+  "version": "1.0.1",
   "description": "Atlas SQL ODBC Dialect for Knex",
   "main": "dist/index.js",
   "scripts": {
@@ -11,7 +11,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nhuanhoangduc/knex-atlas-sql.git"
+    "url": "git+https://github.com/nhuanhoangduc/knex-mongo.git"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
@@ -30,9 +30,9 @@
   },
   "types": "./dist/index.d.ts",
   "bugs": {
-    "url": "https://github.com/nhuanhoangduc/knex-atlas-sql/issues"
+    "url": "https://github.com/nhuanhoangduc/knex-mongo/issues"
   },
-  "homepage": "https://github.com/nhuanhoangduc/knex-atlas-sql#readme",
+  "homepage": "https://github.com/nhuanhoangduc/knex-mongo#readme",
   "directories": {
     "test": "test"
   }

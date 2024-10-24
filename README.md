@@ -1,40 +1,30 @@
-# @hoangducnhuan/knex-atlas-sql
+# @hoangducnhuan/knex-mongo
 
-Atlas Sql Dialect for [knex.js](http://knexjs.org)
-
-Since PGlite is single user and only supports a single connection, this library doesn't allow users to configure
-the connection pool in the `Knex.Config`.
-Internally, the pool is set to `{ min: 1, max: 1 }`, i.e. there is exactly one connection at a time.
+Mongo Dialect for [knex.js](http://knexjs.org)
 
 ## Install
 
 ```bash
-npm install @hoangducnhuan/knex-atlas-sql
+
+npm install @hoangducnhuan/knex-mongo
+
 ```
 
 ## Usage
 
 ```ts
 import { knex } from "knex";
-import ClientAtlasSqlOdbc from "@hoangducnhuan/knex-atlas-sql";
+import ClientMongo from "@hoangducnhuan/knex-mongo";
 
 const instance = knex({
-  client: ClientAtlasSqlOdbc,
-  dialect: "postgres",
-  // Use an empty object to use an in memory db
-  connection: {},
-  // OR provide own PGLite instance
-  // connection: { pglite: new PGLite() },
-  // OR use the filesystem:
-  // connection: { filename: 'path/to/my-pgdata' },
-  // OR use indexdb:
-  // connection: { connectionString: 'idb://my-pgdata' },
+  client: ClientMongo,
+  mongo: {
+    url: "mongodb://host1:27017,host2:27017,host3:27017/?replicaSet=myRs",
+    databaseName: "dev",
+    options: {},
+  },
 });
 ```
-
-## Acknowledgements
-
-Mostly based on the build-in knex Postgres/Sqlite dialects.
 
 ## License
 

@@ -63,7 +63,10 @@ class ClientAtlasSqlOdbcImpl extends BaseClient {
     if (!obj.sql) throw new Error("The query is empty");
 
     // fill params to query
-    const query = formatQuery(obj.sql, obj.bindings, "UTC", this);
+    const query = formatQuery(obj.sql, obj.bindings, "UTC", this).replaceAll(
+      "`",
+      ""
+    );
 
     // parse sql query
     const parsedSQL = SQLParser.parseSQL(query);

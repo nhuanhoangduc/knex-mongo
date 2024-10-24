@@ -8,7 +8,6 @@ describe("Basic tests", () => {
   beforeAll(() => {
     db = Knex({
       client: ClientAtlasSqlOdbc,
-
       mongo: {
         url: "mongodb://mongodb0:27021,mongodb1:27022,mongodb2:27023/dev?replicaSet=rs0",
         databaseName: "dev",

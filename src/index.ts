@@ -7,12 +7,10 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Knex } from "knex";
-const BaseClient = require("knex/lib/dialects/mysql/index.js");
+const BaseClient = require("knex/lib/dialects/postgres/index.js");
 import { MongoClient, MongoClientOptions } from "mongodb";
 import SQLParser from "@synatic/noql";
-const {
-  formatQuery,
-} = require("knex/lib/execution/internal/query-executioner");
+import { prepareValue } from "pg/lib/utils";
 
 export type KnexTrinoConfig = Knex.Config & {
   mongo: {
@@ -63,11 +61,10 @@ class ClientAtlasSqlOdbcImpl extends BaseClient {
     if (!obj.sql) throw new Error("The query is empty");
 
     // fill params to query
-    const query = formatQuery(obj.sql, obj.bindings, "UTC", this).replaceAll(
-      "`",
-      ""
-    );
-
+    const values = obj.bindings?.map(prepareValue);
+    const query = values.reduce((memo, value, index) => {
+      return memo.replace(`$${index + 1}`, value);
+    }, obj.sql.replaceAll('"', ""));
     // parse sql query
     const parsedSQL = SQLParser.parseSQL(query);
 
@@ -105,21 +102,11 @@ class ClientAtlasSqlOdbcImpl extends BaseClient {
 
   // Process the response as returned from the query.
   processResponse(obj) {
-    if (obj == null) return;
-    const { response } = obj;
-    const { method } = obj;
-    switch (method) {
-      case "select":
-        return response;
-      case "first":
-        return response[0];
-      case "del":
-      case "update":
-      case "counter":
-        return response;
-      default:
-        return response;
-    }
+    const resp = obj.response;
+    if (obj.method === "raw") return resp;
+    if (obj.method === "first") return resp[0];
+    if (obj.method === "pluck") return resp.map(obj.pluck);
+    return resp;
   }
 }
 

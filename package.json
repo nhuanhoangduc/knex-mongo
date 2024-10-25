@@ -1,7 +1,7 @@
 {
   "name": "@hoangducnhuan/knex-mongo",
-  "version": "1.0.2",
-  "description": "Atlas SQL ODBC Dialect for Knex",
+  "version": "1.0.3",
+  "description": "Mongo Dialect for Knex",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -26,7 +26,8 @@
   "dependencies": {
     "@synatic/noql": "^4.1.15",
     "knex": "3.1.0",
-    "mongodb": "^6.10.0"
+    "mongodb": "^6.10.0",
+    "pg": "^8.13.1"
   },
   "types": "./dist/index.d.ts",
   "bugs": {
